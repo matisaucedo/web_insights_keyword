@@ -1,1 +1,371 @@
-<h1>Github page test</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type M1 - Elegant Mechanical Keyboard</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 20px 40px -10px rgba(0,0,0,0.05);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            will-change: transform, backdrop-filter;
+        }
+
+        .spring-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+        }
+        .spring-hover:active {
+            transform: scale(0.96) translateY(2px) !important;
+        }
+
+        .fade-up-item {
+            opacity: 0;
+            transform: translateY(30px) translateZ(0); /* Hardware accelerated */
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up-item.visible {
+            opacity: 1;
+            transform: translateY(0) translateZ(0);
+        }
+
+        .feature-block {
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s;
+            opacity: 0.2; /* Unfocused state by default */
+            transform: scale(0.95);
+        }
+        .feature-block.active-focus {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(50px, -80px) scale(1.1); }
+            66% { transform: translate(-30px, 40px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 15s infinite alternate ease-in-out;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Máscara exclusiva de Desktop para no oscurecer la pantalla completa en móvil */
+        @media (min-width: 768px) {
+            .md-mask-video {
+                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
+                mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
+            }
+        }
+
+        /* Máscara exclusiva de Móvil para desvanecimiento superior e inferior natural */
+        @media (max-width: 767px) {
+            .mobile-mask-video {
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-transparent text-zinc-900 antialiased overflow-x-hidden w-full selection:bg-[#ff8e00]/30 selection:text-zinc-950 min-h-screen relative">
+    
+    <!-- Dynamic Mesh Gradient + Liquid Glass Background -->
+    <!-- OPTIMIZACIÓN GPU: TranslateZ(0) fuerza Hardware Acceleration nativa evitando repaints inútiles en scroll -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden bg-[#fafafa] pointer-events-none" style="transform: translateZ(0); backface-visibility: hidden;">
+        <!-- Orbes de luz Naranja. Blur filter eliminado. Renderizado puro mediante radial-gradient ultra-ligero para la GPU -->
+        <div class="absolute top-[-15%] left-[-15%] w-[60vw] h-[80vh] animate-blob" style="background: radial-gradient(circle, rgba(255,142,0,0.15) 0%, rgba(255,142,0,0) 65%); transform: translateZ(0); will-change: transform;"></div>
+        <div class="absolute bottom-[-15%] left-[-20%] w-[55vw] h-[75vh] animate-blob animation-delay-2000" style="background: radial-gradient(circle, rgba(255,142,0,0.12) 0%, rgba(255,142,0,0) 65%); transform: translateZ(0); will-change: transform;"></div>
+        
+        <!-- El Liquid Glass Frontal. Blur bajado drásticamente a 20px (la matemática de blur colisionaba ahogando JS y GPUs móviles al sumarse a capas superiores) -->
+        <div class="absolute inset-0 bg-white/70 backdrop-blur-[20px]" style="transform: translateZ(0); will-change: backdrop-filter;"></div>
+    </div>
+
+    <!-- Navbar Fija Superior -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-6 h-16 sm:h-20 flex justify-between items-center sm:px-12 bg-white/60 backdrop-blur-xl border-b border-zinc-200/50">
+        <a href="#" class="flex items-center hover:opacity-80 transition-opacity relative">
+            <img src="./assets/logo_insights.png" alt="Insights" class="h-10 md:h-12 w-auto object-contain drop-shadow-sm scale-[1.8] md:scale-[2.5] origin-left" />
+        </a>
+        <div class="hidden sm:flex items-center gap-8 text-sm font-medium text-zinc-500">
+            <a href="#" class="hover:text-zinc-950 transition-colors">Diseño</a>
+            <a href="#" class="hover:text-zinc-950 transition-colors">Interruptores</a>
+            <a href="#" class="hover:text-zinc-950 transition-colors">Especificaciones</a>
+        </div>
+        <button class="bg-[#ff8e00]/85 backdrop-blur-md border border-white/30 text-white px-5 py-2 rounded-full text-sm font-bold tracking-wide spring-hover hover:bg-[#ff8e00] hover:border-white/50 hover:shadow-[0_4px_20px_rgba(255,142,0,0.5)] shadow-[0_4px_14px_rgba(255,142,0,0.25)] transition-all">
+            Reservar
+        </button>
+    </nav>
+
+    <!-- STORY CONTAINER: Aquí vive la pantalla dividida (Split Screen en MD / Fullscreen Background en Móvil) -->
+    <!-- Altura forzada para que haya suficiente margen de Scrolleo sin llegar de inmediato al fondo -->
+    <main id="story-container" class="relative flex flex-col md:flex-row w-full max-w-[1500px] mx-auto min-h-[450vh]">
+        
+        <!-- El Video Interactivo (Fondo en Móvil / Derecha en Desktop) -->
+        <!-- Usamos el orden de flexbox y márgenes negativos para que en móvil ruede "por detrás" del texto que lo sigue -->
+        <div class="flex w-full md:w-1/2 h-[100dvh] sticky top-0 right-0 items-center justify-center z-0 md:z-10 pointer-events-none md-mask-video mobile-mask-video order-1 md:order-2">
+            
+            <!-- EL VIDEO: Cubre toda la pantalla en móvil (object-cover). Fiel a la versión original en Desktop (object-contain y max-h-[90vh]). -->
+            <video id="scroll-video" src="./assets/keyboard_anim.mp4" class="w-full h-full md:max-h-[90vh] object-cover md:object-contain mix-blend-multiply opacity-[0.35] md:opacity-95 transition-opacity" preload="auto" muted playsinline style="will-change: transform; transform: translateZ(0);"></video>
+
+        </div>
+
+        <!-- Contenido Fluyente: Frente en Móvil / Izquierda en Desktop -->
+        <div class="w-full md:w-1/2 flex flex-col z-20 pb-[50vh] relative -mt-[100dvh] md:mt-0 order-2 md:order-1">
+            
+            <!-- Bloque 1: Hero Principal (Punto inicial del scroll) -->
+            <div class="h-[100vh] flex flex-col items-start justify-center px-6 sm:px-12 md:pl-24 pt-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff8e00]/30 bg-[#ff8e00]/10 mb-6 text-xs font-bold tracking-wide uppercase text-[#ff8e00] shadow-sm fade-up-item">
+                    <i class="ph-fill ph-sparkle text-[#ff8e00]"></i> Nuevo Lanzamiento
+                </div>
+                <h1 class="text-6xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.9] text-zinc-950 mb-8 fade-up-item" style="transition-delay: 100ms;">
+                    Lógica.<br/>Refinada.
+                </h1>
+                <p class="text-lg md:text-xl text-zinc-500 max-w-[40ch] leading-relaxed mb-10 fade-up-item" style="transition-delay: 200ms;">
+                    Aluminio de grado aeroespacial. Maestría táctil. Diseñado estructuralmente desde cero para programadores, escritores y creadores.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto fade-up-item" style="transition-delay: 300ms;">
+                    <button class="w-full sm:w-auto bg-[#ff8e00]/85 backdrop-blur-xl border border-white/30 text-white px-8 py-4 rounded-full text-base font-bold tracking-wide spring-hover hover:bg-[#ff8e00] hover:border-white/50 hover:shadow-[0_8px_40px_rgba(255,142,0,0.5)] shadow-[0_8px_30px_rgba(255,142,0,0.25)] transition-all">
+                        Reserva el tuyo — $249
+                    </button>
+                    <button class="w-full sm:w-auto bg-white/40 backdrop-blur-xl border border-white/60 text-zinc-950 px-6 py-4 rounded-full text-base font-medium spring-hover flex items-center justify-center gap-2 hover:bg-white/60 hover:border-[#ff8e00]/50 hover:text-[#ff8e00] shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all">
+                        <i class="ph-light ph-play-circle text-2xl"></i> Ver Video
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bloque 2: Feature 1 -->
+            <div class="h-[100vh] flex flex-col justify-center px-6 sm:px-12 md:pl-24 feature-block">
+                <div class="liquid-glass rounded-[2rem] p-8 md:p-12 w-full max-w-[500px] transition-all duration-500 hover:bg-white/50 relative overflow-hidden">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold tracking-wide uppercase text-zinc-500 bg-white/60 rounded-full border border-white/60 shadow-sm relative z-10">
+                        <i class="ph-fill ph-sliders text-[#ff8e00]"></i> Acusto-mecánica
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-zinc-950 mb-6 drop-shadow-sm relative z-10">Perfección<br/>Táctil de 45g.</h2>
+                    <p class="text-zinc-700 text-lg md:text-xl leading-relaxed relative z-10">
+                        Cada interruptor es lubricado a mano en fábrica, ofreciendo el sonido más profundo y la curva de desplazamiento suave de la industria. Cero holguras.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloque 3: Feature 2 -->
+            <div class="h-[100vh] flex flex-col justify-center px-6 sm:px-12 md:pl-24 feature-block">
+                <div class="liquid-glass rounded-[2rem] p-8 md:p-12 w-full max-w-[500px] transition-all duration-500 hover:bg-white/50 relative overflow-hidden">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold tracking-wide uppercase text-zinc-500 bg-white/60 rounded-full border border-white/60 shadow-sm relative z-10">
+                        <i class="ph-fill ph-cube text-[#ff8e00]"></i> Arquitectura
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-zinc-950 mb-6 drop-shadow-sm relative z-10">Aluminio Sólido<br/>CNC.</h2>
+                    <p class="text-zinc-700 text-lg md:text-xl leading-relaxed relative z-10">
+                        Mecanizado a partir del bloque maestro de aleación aeroespacial. Con un peso de 1.8kg, elimina por completo la reverberación y la flexión del chasis.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloque 4: Feature 3 -->
+            <div class="h-[100vh] flex flex-col justify-center px-6 sm:px-12 md:pl-24 feature-block">
+                <div class="liquid-glass rounded-[2rem] p-8 md:p-12 w-full max-w-[500px] transition-all duration-500 hover:bg-white/50 relative overflow-hidden">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold tracking-wide uppercase text-zinc-500 bg-white/60 rounded-full border border-white/60 shadow-sm relative z-10">
+                        <i class="ph-fill ph-lightning text-[#ff8e00]"></i> Transmisión
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-zinc-950 mb-6 drop-shadow-sm relative z-10">MCU 8000Hz<br/>Sin Latencia.</h2>
+                    <p class="text-zinc-700 text-lg md:text-xl leading-relaxed relative z-10">
+                        Por cable o inalámbrico, tus comandos se registran antes de que levantes el dedo de la tecla. Escribe más rápido de lo que se refresca tu pantalla.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Bento Grid (Especificaciones Finales) -->
+    <!-- El fondo sólido se elimina para permitir que los blobs atraviesen sus paneles translúcidos -->
+    <section class="max-w-[1400px] mx-auto px-6 sm:px-12 py-32 z-10 relative mb-20 md:-mt-32">
+        <div class="mb-20 fade-up-item">
+            <h2 class="text-4xl md:text-6xl font-bold tracking-tighter text-zinc-950">Perfectamente diseñado.</h2>
+            <p class="text-zinc-500 mt-4 text-xl">Por dentro y por fuera.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[340px]">
+            <!-- Bento Card 1 -->
+            <div class="md:col-span-2 bg-white/40 backdrop-blur-[32px] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-12 flex flex-col justify-end relative overflow-hidden group fade-up-item hover:bg-white/50 transition-colors duration-500">
+                <i class="ph-duotone ph-battery-charging text-7xl text-zinc-800 absolute top-10 right-10"></i>
+                <h3 class="text-3xl font-semibold mb-3 text-zinc-950 tracking-tight">400h de Autonomía.</h3>
+                <p class="text-zinc-500 max-w-md text-lg">Olvídate de los cables. La celda de litio de gran densidad dura un trimestre fiscal entero con una carga rápida.</p>
+            </div>
+            
+            <!-- Bento Card 2 -->
+            <div class="bg-zinc-950/80 backdrop-blur-[32px] border border-zinc-700/50 rounded-[2.5rem] p-12 flex flex-col justify-end relative fade-up-item group shadow-[0_16px_40px_rgba(0,0,0,0.2)]">
+                <h3 class="text-3xl font-semibold mb-3 text-white tracking-tight">Montura O-Ring</h3>
+                <p class="text-zinc-400 text-lg">PCB suspendida sobre 12 anillos de silicona premium para una sensación de escritura increíblemente suave.</p>
+                <div class="absolute top-10 flex gap-2 w-full pr-12">
+                    <div class="h-2 flex-1 bg-white/20 rounded-full group-hover:bg-[#ff8e00] transition-colors duration-700"></div>
+                    <div class="h-2 flex-1 bg-white/20 rounded-full group-hover:bg-[#ff8e00] transition-colors duration-700 delay-100"></div>
+                </div>
+            </div>
+            
+            <!-- Bento Card 3 -->
+            <div class="md:col-span-3 bg-[#ff8e00]/80 backdrop-blur-[32px] border border-white/30 rounded-[2.5rem] flex items-center justify-between px-10 md:px-20 overflow-hidden relative fade-up-item group shadow-[0_20px_50px_-10px_rgba(255,142,0,0.3)]">
+                <span class="text-white text-4xl md:text-5xl font-bold tracking-tight z-10 w-full sm:w-auto text-center sm:text-left drop-shadow-sm">Tu código merece algo mejor.</span>
+                <button class="hidden sm:flex bg-white text-[#ff8e00] shadow-xl rounded-full w-20 h-20 items-center justify-center spring-hover group-hover:scale-110 group-hover:rotate-12 group-hover:bg-zinc-50 group-hover:text-[#e68000] transition-all z-10">
+                    <i class="ph-bold ph-shopping-bag text-3xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-[1400px] mx-auto px-6 sm:px-12 py-12 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-6">
+        <a href="#" class="flex items-center hover:opacity-80 transition-opacity">
+            <img src="./assets/logo_insights.png" alt="Insights Hardware" class="h-10 md:h-12 w-auto object-contain drop-shadow-sm scale-[1.5] md:scale-[1.8] origin-left" />
+        </a>
+        <div class="text-sm text-zinc-400">© 2026 Insights Hardware.</div>
+    </footer>
+
+    <!-- Zero-Lag Scroll Video Motor -->
+    <script>
+        // Efecto Cascada
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-up-item').forEach(el => observer.observe(el));
+
+        // Magnetic Physics
+        document.querySelectorAll('.spring-hover').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.2;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.2;
+                btn.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+            });
+            btn.addEventListener('mouseleave', () => btn.style.transform = `translate(0px, 0px) scale(1)`);
+        });
+
+        // ==========================================
+        //  EL MOTOR LOCOMOTIVE ZERO-LAG
+        // ==========================================
+        const container = document.getElementById('story-container');
+        const video = document.getElementById('scroll-video');
+        const features = document.querySelectorAll('.feature-block');
+        
+        // El factor lerp suave
+        let targetProgress = 0;
+        let currentProgress = 0;
+        let isRenderLoopRunning = false;
+
+        const updateScrollMetrics = () => {
+            const rect = container.getBoundingClientRect();
+            // Restamos window.innerHeight porque queremos llegar al 1.0 (100%) cuando el borde inferior sea visible
+            const maxScroll = rect.height - window.innerHeight; 
+            
+            if (rect.top > 0) {
+                targetProgress = 0; // Arriba de todo
+            } else if (-rect.top > maxScroll) {
+                targetProgress = 1; // Abajo de todo
+            } else {
+                targetProgress = (-rect.top) / maxScroll;
+            }
+
+            if (!isRenderLoopRunning) {
+                isRenderLoopRunning = true;
+                requestAnimationFrame(scrollTick);
+            }
+        };
+
+        const scrollTick = () => {
+            currentProgress += (targetProgress - currentProgress) * 0.08;
+
+            if (Math.abs(targetProgress - currentProgress) > 0.0001) {
+                
+                // ACTUALIZACIÓN ANTI-LAG (El secreto para mp4)
+                // Usamos `!video.seeking` para evitar tirones. Si el navegador ya se está ahogando
+                // pidiéndole decodificar un fotograma, ignoramos forzosamente nuestra orden hasta que recupere el aliento.
+                // Usamos readyState >= 2 (HAVE_CURRENT_DATA) para asegurarnos que se puede reproducir.
+                if (video.duration && !video.seeking && video.readyState >= 2) {
+                    const mappedTime = currentProgress * video.duration;
+                    // Solo actualizar si la diferencia excede un umbral visual mínimo (25ms+)
+                    if (Math.abs(video.currentTime - mappedTime) > 0.03) {
+                        video.currentTime = mappedTime;
+                    }
+                }
+
+                // Detector de Características (Textos de la Izquierda)
+                // Encendemos el "Feature" que esté más cerca del centro vertical de la pantalla.
+                features.forEach(feat => {
+                    const fRect = feat.getBoundingClientRect();
+                    const viewCenter = window.innerHeight / 2;
+                    const fCenter = fRect.top + (fRect.height / 2);
+                    
+                    // Si el centro de la feature está a menos de cierta distancia del centro de pantalla: enfocar
+                    if (Math.abs(viewCenter - fCenter) < window.innerHeight * 0.35) {
+                        feat.classList.add('active-focus');
+                    } else {
+                        feat.classList.remove('active-focus');
+                    }
+                });
+
+                requestAnimationFrame(scrollTick);
+            } else {
+                isRenderLoopRunning = false;
+            }
+        };
+
+        window.addEventListener('scroll', updateScrollMetrics, { passive: true });
+        window.addEventListener('resize', updateScrollMetrics, { passive: true });
+        
+        // Empujar la rueda inmediatamente si ya estaba cargado abajo al refrescar
+        video.addEventListener('loadedmetadata', updateScrollMetrics);
+        // Force the browser to grab video frames early into memory
+        video.play().then(() => video.pause()).catch(() => {});
+        
+    </script>
+</body>
+</html>
